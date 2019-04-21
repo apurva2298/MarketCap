@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"
+	charset="UTF-8">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+<script src="https://unpkg.com/ag-grid@16.0.0/dist/ag-grid.min.js"></script>
+
+<script src="http://ui-grid.info/release/ui-grid.js"></script>
+<link rel="stylesheet" href="grid.css" type="text/css">
+<link rel="stylesheet" href="any.css" type="text/css">
+
+<script type="text/javascript" src="select.js">
+ </script>
+
+
+<style type="text/css">
+body {
+	background-color: lightcyan;
+	font-size: 20px;
+	height: 100%;
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+section {
+	min-height: 100%;
+}
+
+.header {
+	text-align: right;
+}
+
+.mySlides {
+	display: none;
+}
+
+img {
+	vertical-align: middle;
+	overflow: hidden;
+}
+
+.slideshow-container {
+	position: relative;
+}
+
+/* Position the "next button" to the right */
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+	color: #f2f2f2;
+	font-size: 15px;
+	padding: 8px 12px;
+	position: absolute;
+	bottom: 8px;
+	width: 100%;
+	text-align: center;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 20%;
+	display: inline-block;
+	transition: background-color 1.0s ease;
+}
+
+.active, .dot:hover {
+	background-color: black;
+}
+
+/* Fading animation */
+.fade {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 2.5s;
+	animation-name: fade;
+	animation-duration: 2.5s;
+}
+
+@
+-webkit-keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+@
+keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+	.prev, .next, .text {
+		font-size: 11px
+	}
+}
+
+@
+-webkit-keyframes slide { 0% {
+	left: 0;
+	top: 0;
+}
+
+100%
+{
+left
+:
+ 
+100
+px
+;
+
+    
+top
+:
+ 
+0;
+}
+}
+@
+keyframes slide { 0% {
+	left: 0;
+	top: 0;
+}
+
+100%
+{
+left
+:
+ 
+50
+px
+;
+
+    
+top
+:
+ 
+0;
+}
+}
+.btn1 {
+	border: 2px solid dodgerblue;
+	background-color: skyblue;
+	color: black;
+	padding: 35px 55px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.btn2 {
+	border: 2px solid dodgerblue;
+	background-color: skyblue;
+	color: black;
+	padding: 35px 70px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.btn3 {
+	border: 2px solid dodgerblue;
+	background-color: skyblue;
+	color: black;
+	padding: 35px 55px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.cap {
+	color: dodgerblue;
+}
+
+.cap:hover {
+	background-color: dodgerblue;
+	color: white;
+}
+
+.default:hover {
+	background: #e7e7e7;
+}
+
+/* For grid display */
+.myGrid {
+	margin: 80px;
+	width: 89.5%;
+	height: 100%;
+}
+
+.mySavedStocksGrid {
+	margin: 2px;
+	width: 100%;
+	height: 100%;
+}
+
+.ui-grid-top-panel {
+	background: lightgray;
+	color: steelblue;
+}
+
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+	background-color: lightsteelblue;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+	background-color: lavender;
+}
+
+.ui-grid-cell-focus {
+	outline: 2;
+	background-color: red;
+}
+
+.text-center {
+	text-align: center;
+}
+/* Style the tab */
+.tab {
+	overflow: hidden; //
+	border: 1px solid darkgreen;
+	background-color: powderblue;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: powderblue;
+	float: center;
+	border: none;
+	outline: 1;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.2s;
+	font-size: 17px;
+	width: 250px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: mediumseagreen;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: mediumaquamarine;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+}
+
+/*logout*/
+.dropbtn {
+	background-color: lightcyan;
+	color: mediumvioletred;
+	padding: 0px 11px;
+	font-size: 18px;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+	background-color: lightcyan;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: lightcyan;
+	min-width: 150px;
+	overflow: auto;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 10px 14px;
+	text-decoration: none;
+	display: block;
+	font-size: 13px;
+	text-align: left;
+}
+
+.dropdown a:hover {
+	background-color: #ddd
+}
+
+.show {
+	display: block;
+}
+
+#element1 {
+	float: center;
+	color: indigo;
+}
+
+#element2 {
+	float: right;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%; /* Could be more or less, depending on screen size */
+	opacity: 0.9;
+	filter: alpha(opacity = 60);
+}
+
+.saveModal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.saveModal-content {
+	background-color: #fefefe;
+	margin: 2% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 95%; /* Could be more or less, depending on screen size */
+	opacity: 0.9;
+	filter: alpha(opacity = 60);
+}
+
+.def {
+	font-size: 16px;
+	font-weight: 400;
+	margin: 20px 20px 20px 20px;
+}
+
+.mar {
+	color: red;
+	font-weight: 500;
+}
+</style>
+</head>
+
+<body ng-app="StockManagement" ng-controller="StockController">
+	<div class="header">
+		<p>
+		<div id="element2">
+
+			<div class="dropdown">
+				<button onclick="myFunction()" class="dropbtn">
+					<br>My Profile
+				</button>
+				&nbsp&nbsp&nbsp&nbsp
+				<div id="myDropdown" class="dropdown-content">
+					<a ng-href="" ng-click="getSaveData()">Saved Data</a> <a
+						href="http://localhost:8082/StockMarket/login.html">Logout</a>
+				</div>
+			</div>
+		</div>
+		<div id="element1">
+			<center>
+				<h1>
+					<b>TRADE RECOMMENDER</b>
+				</h1>
+			</center>
+		</div>
+		<div class="mar">
+			<MARQUEE>
+				<h3>
+					Gateway To Secure Investments!!!
+					<h3>
+			</MARQUEE>
+		</div>
+		</p>
+	</div>
+
+	<div class="slideshow-container">
+
+		<div class="mySlides fade">
+			<img src="stock1.jpg" width="100%" height="300px">
+		</div>
+
+		<div class="mySlides fade">
+			<img src="stock2.jpg" width="100%" height="300px">
+		</div>
+
+		<div class="mySlides fade">
+			<img src="stock3.jpg" width="100%" height="300px">
+		</div>
+
+		<a class="prev" onclick="plusSlides(-1)"></a>
+		<div align="center">
+			<span class="dot" onclick="currentSlide(1)"></span> <span class="dot"
+				onclick="currentSlide(2)"></span> <span class="dot"
+				onclick="currentSlide(3)"></span>
+		</div>
+		<a class="next" onclick="plusSlides(1)"></a>
+	</div>
+
+
+	<div class="tab">
+		<button id="defaultOpen" class="tablinks"
+			ng-click="refreshStockData()" onclick="openStock(event, 'AllStocks')">All
+			Stocks</button>
+		<button class="tablinks" onclick="openStock(event, 'Small')"
+			ng-click="getSmallCap()">Small</button>
+		<button class="tablinks" onclick="openStock(event, 'Medium')"
+			ng-click="getMidCap()">Medium</button>
+		<button class="tablinks" onclick="openStock(event, 'Large')"
+			ng-click="getLargeCap()">Large</button>
+
+	</div>
+
+	<div id="AllStocks" class="tabcontent">
+		<div ui-grid="gridOptionsAll" class="myGrid" ui-grid-selection
+			ui-grid-edit></div>
+	</div>
+
+	<div id="Small" class="tabcontent">
+		<br>
+		<button class="top5" ng-click="passSmall()">Top 5
+			recommendations</button>
+
+		<div ui-grid="gridOptionsSmall" class="myGrid" ui-grid-selection
+			ui-grid-edit></div>
+
+	</div>
+
+	<div id="Medium" class="tabcontent">
+		<br>
+		<button class="top5" ng-click="passMid()">Top 5
+			recommendations</button>
+
+		<div ui-grid="gridOptionsMid" class="myGrid" ui-grid-selection
+			ui-grid-edit></div>
+
+	</div>
+
+	<div id="Large" class="tabcontent">
+		<br>
+		<button class="top5" ng-click="passLarge()">Top 5
+			recommendations</button>
+
+		<div ui-grid="gridOptionsLarge" class="myGrid" ui-grid-selection
+			ui-grid-edit></div>
+
+	</div>
+
+
+	<!-- ----------------------------------------------------------------------------------------------------------- -->
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p id="myID" style="font-size: 18">Data:</p>
+		</div>
+
+	</div>
+
+	<div id="saveModal" class="saveModal">
+
+		<!-- Modal content -->
+		<div class="saveModal-content">
+			<span class="saveClose">&times;</span>
+			<p id="saveID" style="font-size: 18">
+			<div id="NoSaved" ui-grid="gridOptions" class="mySavedStocksGrid"
+				ui-grid-selection ui-grid-edit></div>
+			</p>
+		</div>
+
+	</div>
+	<!-- ---------------------------------------------------------------------------------------------------------------- -->
+<div class = "def">
+<p>
+<b>Year to date (YTD) </b>refers to the period beginning the first day of the current calendar year or fiscal year up to the current date. YTD information is useful for analyzing business trends or comparing performance data, and the acronym often modifies concepts such as investment returns, earnings and net pay.
+<br>
+<br>
+A 52-week <b>high/low</b> is the highest and lowest price that a <b>stock</b> has traded at during the previous year. Many traders and investors view the 52-week high or low as an important factor in determining a stock's <b>current value</b> and predicting <b>future price</b> movement.
+<br><br>
+<b>Market Capital </b>is the value of a company that is traded on the stock market, calculated by <b>total number of shares * present share price</b>.
+<br><br>
+<b>Price Earnings (PE)</b> ratio is the ratio of company's current share price to its earnings per share.
+</p>
+</div>
+	<script>
+document.getElementById("defaultOpen").click();
+/*slides*/
+var Index = 0;
+hello();
+function hello() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    Index++;
+    if (Index > slides.length) {Index = 1}    
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[Index-1].style.display = "block";  
+    dots[Index-1].className += " active";
+    setTimeout(hello, 2500); // Change image every 2 seconds
+}
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides fade");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+	
+	
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}	
+</script>
+</body>
+</html>

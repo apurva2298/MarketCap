@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script type="text/javascript">
+            var app = angular.module("LogIn", []);
+         
+            //Controller Part
+            app.controller("LogInController", function($scope, $http,$window) {
+         
+                $scope.logInForm = {
+                    username : "",
+                    password : ""
+                };
+         
+                $scope.submitLogIn = function() {
+                	
+                    $http({
+                        method : "POST",
+                        url : 'rest/login',
+                        data : angular.toJson($scope.logInForm),
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then( _success, _error );  
+                };
+                
+                
+                function _success(response) {
+                	if(response.data==1)
+                		{
+                	
+                	alert("Successful");
+                	var unameId=document.getElementById('userId').value;
+                	
+                	window.location.replace('http://localhost:8082/StockMarket/dashboard.html'+'#'+unameId);
+                	
+                		}else
+                	{
+                			//alert("Please enter valid username or password!");
+                			alert("invalid");
+                			 _clearFormData();
+                	}
+                   
+                }
+         
+                function _error(response) {
+                	//alert("Please enter valid username or password!");
+                    console.log(response.statusText);
+                }
+         
+                //Clear the form
+                function _clearFormData() {
+                    $scope.logInForm.username = "";
+                    $scope.logInForm.password = "";
+                
+                };
+                
+            });
+</script>
+
+<style>
+
+body{
+background-size : 100%;
+
+background-image:url("citi15.jpg");
+padding-top: 30px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    padding-left: 70px;
+color:grey;
+}
+h2
+{
+ color:white;
+
+}
+h4
+{
+ color:white;
+}
+form {
+    width: 35%;
+     height: 100%;
+top:80%;
+   left:40%;
+  
+  margin-left : 53%;
+    border: 3px solid gray;
+    
+background-color: black;
+    opacity: 0.7;
+}
+
+input[type=text], input[type=password] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+    font-size:20px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.container {
+    padding: 2px;
+}
+div.border11 {
+
+  border: 2px #5C8C2B;
+ padding-top: 1px;
+    padding-right: 20px;
+    padding-bottom: 50px;
+    padding-left: 20px;
+
+ 
+background: #f4f6f6;
+
+}
+
+</style>
+</head>
+<body ng-app="LogIn" ng-controller="LogInController">
+<br>
+<br>
+<br>
+<br>
+<center><form ng-submit="submitLogIn()">
+<br>
+   <h2> LOGIN</h2>
+  <div class="container">
+    
+  
+
+ <h4>   Username <input type="text" id="userId" placeholder="Enter Username" name="uname" required ng-model="logInForm.username">
+    
+    <br>
+    Password&nbsp<input type="password" placeholder="Enter Password" name="psw" background-color=blue required ng-model="logInForm.password">
+        
+</h4>
+
+    <button type="submit"><b>LOGIN</b></button>
+    <label><br>
+      
+<br>
+    </label>
+    </p>
+  </div>
+</center>
+</form>
+
+</body>
+</html>
